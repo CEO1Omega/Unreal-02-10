@@ -1,0 +1,201 @@
+=============================주의점=============================
+Naghit 사용시 RayTracing와 함께사용X
+그림자가 붉은색으로 뜰때(텍스쳐 스트리밍 헤제)
+Foliage.ForceLOD 0 = 폴리지 값설정
+
+조명,오브젝트를 스포너블로 햘당하면 특정 레벨에서만 표현가능
+
+=============================프로젝트 설정=============================
+프로젝트 세팅 -> 엔진 -> 렌더링(렌더링방법 설정)
+프로젝트 세팅 -> 스카이 아트머스피어 영향 하이트 포그 지원
+프로젝트 세팅-> Exposure검색 -> 자동 노출 설정에서 기본 휘도 범위확장
+
+=============================플러그인=============================
+플러그인 -> ARKit
+플러그인 -> Movie Rander Queue
+플러그인 -> Apple ProRes Media
+플러그인 -> Sun Position Calculator
+플러그인 -> Sun Position Calculator
+플러그인 -> Volumetric
+플러그인 -> HDRIBackdrop
+
+=============================기본기능=============================
+편집 -> 에디터 개인설정 = 엔진기능 설정(프로젝트상 영향X)
+편집 -> 플러그인 = 플러그인 세팅
+편집 -> 프로젝트 세팅 = 기능설정
+편집 -> 소스 컨트롤에 접속 = 다른사람과 프로젝트를 진행할때 주로 사용
+
+-창
+아웃라이너 = 에셋,데이터,라이팅기능등을 관리하는 공간
+디테일 = 값,데이터등을 바꾸고 편집할 수 있음
+콘텐츠 브라우저 = 파일관리(탐색기뷰)
+레이어 = 에셋관리
+레벨 = 레벨을 추가하거나 수정할 수 있음
+
+-단축키
+G = 게임모드(게임에서 보이지 않는것을 안보이게 해주는것)
+
+=============================Global Illumination=============================
+-Light
+Directoinal Light = 무한히 먼 거리에 있는 광원에서 오는빛을 구현하는 라이트(큰 규모,오브젝트등에 적합, 부하가큼 | 모든공간 표현)
+Spot Light = 한 지점에서 원뿔 모양으로 빛을 내는 라이트(가장 범위가 적은라이트, 부하가적음)
+Point Light = 모든 방향을 향해 동등한 밝기의 빛을 뿜듯이 구현하는 라이트(여러 방향으로 빛을뿌려 부하가많음)
+Rect Light = 직사각 평면 모양으로 씬에 빛을 내는 라이트(사실적으로 표현가능,부하가 높은라이트)
+Sky Light = 위치와 관계없이 모든 공간에 적용되는 라이트(HDRI를 활용한 라이트,부하가 적음)
+
+-Emissive 라이팅 = 실제 라이팅은 아니지만 빛을 비추는 듯한 효과를 내는 머티리얼을 사용해 빛을 구현할 수 있는 라이팅 방식
+-Shading Model을 Unlit로 설정시 컬러값을 그대로 표현하는 머테리얼 생성가능
+
+Moveable(무버블) = 완전히 동적인 실시간 라이팅
+Static(스태틱) = 한번 베이크 되면 어떤 식으로든 움직이거나 변경할 수 없도록 디자인된 라이트
+Stationary(스테이셔너리) = 한위치에 머물되, 밝기나 색과 같은 것은 바꿀 수 있는 라이트
+
+Local Illumination = 전구 혹은 태양처럼 직접적으로 라이트 자체적으로 오브젝트에 영향을 끼치는 라이팅 기법
+Global Illumination = 광원이 직접적으로 닿지 않더라도 공간 내 다른 물체에서 반사된 빛에의해 받는 간접적인 라이팅 기법
+
+라이트 맵 = 라이트핑에 사양되는 데이터로 UV기반으로 한 맵의 형태
+-스태틱 라이팅에 이미시브 사용 체크시 라이트 맵핑에 영향O
+
+-리플렉션 캡쳐 = 반사값을 표현할 수 없을때 임의의 캐시로 저장해 반사를 만들어주는 기능
+스피어 리플렉션
+박스 리플렉션
+스크린스페이스 리플렉션
+플레이너 리플렉션
+루멘 리플렉션
+
+-라이팅 채널 = 라이팅 채널은 특정 라이트의 빛을 받는 렌더링가능 표면을 선택할 수 있는 렌더링 기능
+
+디테일 -> 글로벌 일루미네이션 = 글로벌 일루메이션 설정
+
+=============================HDRI Lighting=============================
+-CubeMapTextur라는 형태로만 HDRI활용가능
+
+-흐릿할떄
+CubeMap 더블클릭 -> Mip Gen Setting(NomipMap)로변경
+
+-효율적으로 작업하기
+포스트 프로세스 볼륨생성 -> 포스트 프로세스 볼륨 세팅 -> 무한 규모 -> Exposure설정
+
+-HDRI에서 SunLight를 표현하고 싶을때
+HDRI -> 커스텀 머티리얼 -> Parent -> SkyAtmosphereLightDiskLuminance생성 -> Add함수에 연결후 모든EmissivieColor에 연결시키기
+
+=============================시퀸서=============================
+레벨 시퀸스 = 레벨만들기 처럼 시퀸스를 만듬
+마스터 시퀸스 = 레벨 시퀸스를 모아서 편집함
+
+시퀸서 -> 값설정시 +를넣어추가
+
+=============================Ray Tracing=============================
+Ray Tracing = 광선을 추적하여 이루어지는 광원 처리방법
+
+Ray Traced Shadows = 그림자(Shadow에 대한 표현)
+Ray Traced Reflections = 반사(Reflections에 대한 표현)
+Ray Traced Ambient Occlusion = 차폐암부(Ambient Occlusion)
+Ray Traced Global Illumination = 간접광이 표현(Global Illumination)
+Ray Traced Translucency = 투명도(Translucency)
+
+프로젝트 세팅 -> 엔진 -> 렌더링 -> Ray Tracing = Ray Tracing기능을 사용하기 위한 기본설정
+월드 세팅 -> 라이트매스 -> 프리컴퓨티드 라이트 강제 비활성화 = Ray Tracing사용시 라이트맵 사용X
+
+--포스트 프로세스 볼륨를 활용한 RayTracing세팅--
+글로벌 일루미네이션 || 리플렉션 || Ray Tracing Ambient Occlusion || Ray Tracing Translucency(4개의 기능으로 설정)
+
+방식을 Ray Tracing로 변경후 사용
+
+Global Illumination(글로벌 일루미네이션 | 샘플값을 높여서 사용추천)
+Type: RTGI타입 선택
+Disabled: RTGI 비활성화
+Brute Force: 일반적으로 사용되는 RTGI
+Final Gather: 1차 라이트 바운스 이후
+
+Max Bounces: RTGI 최대 반사 횟수 제어
+Samples Per Pixel: 픽셀 당 샘플 수
+
+Finall Gather = 반사가 심하지 않는곳에서 사용추천
+Brute Force = 여러 번의 반사가 필요한 곳에서 사용추천
+
+Reflections(리플렉션)
+Type: 반투명 연산 방식 선택
+Max Roughenss: 최대 거칠기정도 제어
+Max Bounces: 최대 반사 횟수 제어
+Samples Per Pixel: 픽셀당 샘플 수
+Shadows: 반사될 그림자 연산 방식
+Include Translucent Objects: 반투명 오브젝트에 대한 반사값 연산 활성화 여부
+
+Translucency
+Type: 반투명 연산 방식 선택
+Max Roughenss: 최대 거칠기정도 제어
+Max Bounces: 최대 굴절 횟수 제어
+Samples Per Pixel: 픽셀당 샘플 수
+Shadows: 굴절될 그림자 연산방식
+Refraction: 투명도에 대한 굴절 활성화 여부
+
+--출력 로그를 활용한 RayTracing세팅--
+r.RayTracing.
+r.RayTracing.Shadows.SamplesPerPixel = 쉐도우 샘플값설정
+
+--블루프린트를 활용한 RayTracing세팅-
+레벨 플루프린트 활용
+BegainPlay Event에 Execute Console Command추가한 후 활용
+
+=============================Light설정=============================
+High Key: 부드럽고 밝은느낌의 이미지를 생성
+Low Key: 그림자와 라이팅을 어둡게 만듬
+Rim & Contrast: 사실적인 느낌을 만듬
+
+-High Key-
+밝고 화사한 느낌의 빛을 생성할 때 사용
+Directoinal Light를 File Light로 사용추천
+
+-Low Key-
+어둡고 묵직한 느낌의 빛을 생성할 때 사용
+SportLight를 라이트로 사용추천
+
+=============================ARKit=============================
+플러그인 -> ARKit
+
+=============================Movie Rander Queue=============================
+플러그인 -> Movie Rander Queue
+플러그인 -> Apple ProRes Media
+
+=============================Fog=============================
+-Fog-
+--Atmospheric Fog-- = 대기의 느낌,공기의 밀도,빛의 산란 효과를 표현
+1.DirectionalLight -> 애트머스피어 및 클라우드(애트머스피어 선 라이트 체크)
+2.프로젝트 세팅 -> heighFog검색 후 스카이 아트머스피어 영향 하이트 포그 지원(Exponential Height Fog와 함께사용시 Support Sky Atmosphere Affecting Height Fog체크)
+
+Ctrl + L(태양위치 세팅)
+애트머스피어 - 레일리: 태양톤변경
+애스트피어 - 미애: Fog의 느낌을 만듬
+
+--Exponential Height Fog-- = 맵의 높낮이에 따라 안개를 만들어내는 기능
+1.Atmospheric Fog와 조합해서 사용
+Atmospheric Fog와 같이사용시 레일리 스캐터링의 값을 낮춰서 조합
+
+z값으로 안개의 높낮아 설정가능
+Volumetric Fog 체크시 지역적인 Fog생성가능(스케일값이 높아야지 효과를 명확하게 줄수있음)
+Directional Inscattering Color,Fog Inscattering Color값을 블랙으로 맞추기
+
+--특정 광원에서 생성되는 Fog(Exponential Height Fog의 Volumetric Fog가 체크되있어야함)--
+Light추가 -> Volumetric Scattering Intensity,강도설정
+
+-Light Shift(Blocking처리가 가능하게 만듬)
+Light -> 블류메트릭 섀도 드리우기(Volumetric Shadow) 체크(Ray Tracing과 함께사용 불가능 | 레이 트레이싱 섀도 드리우기(Cast Ray Traced Shadows)비활성화)
+
+--Sun Position Calculator = 시간,날짜,지리적 위치를 통해 태양위치의 환경라이팅을 세팅해주는 시스템--
+플러그인 -> Sun Position Calculator
+
+--물리적인 노출방식 세팅--
+프로젝트 세팅-> Exposure검색 -> 자동 노출 설정에서 기본 휘도 범위확장
+PostProcessVolume -> EV Value로 세팅가능
+
+-EV100 = ISO 100을 기준으로 했을 때 조리개,셔터스피드의 값을 EV(Exposure Value)로 환산한 노출정보를 표시하는 단위
+www.scantips.com/lights/exposurecalc.html = EV Value값을 생성할 때 사용할 수 있는사이트
+
+=============================Sky=============================
+편집 -> 플러그인 -> Volumetric(구름의 디테일한 설정을 설정하기 위해서 활성화)
+Volumetric콘텐츠 -> Tools -> CloudCompositing -> Blueprints -> BP_Cloud Mask_Object,BP_Cloud Mask Generator(추가요소)
+Volumetric콘텐츠 -> Content -> Sky -> Materials(BP_Cloud Mask_Object,BP_Cloud Mask Generator,VolumetricCloud를 통해서 조절)
+
+=============================BP=============================
+만들 오브젝트 드래그 -> 우클릭후 Packer Level Actor생성
